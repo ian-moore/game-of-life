@@ -31,7 +31,7 @@
   (if (> tick-count ticks)
     live-cells
     (let [new-cells (calc-life cells live-cells game-size)]
-      (tick cells (set new-cells) (inc tick-count) ticks game-size))))
+      (recur cells (set new-cells) (inc tick-count) ticks game-size))))
 
 (defn play [game-size live-cells ticks]
   (tick (build-cells game-size) live-cells 1 ticks game-size))

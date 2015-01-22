@@ -14,11 +14,7 @@
   (if (= input "GO")
     (set cells)
     (let [c (concat cells (parse-row input row-num))]
-      (read-cells (read-line) (inc row-num) c))))
-
-(defn get-coordinates [size]
-  (def nums (range size))
-  (for [x nums y nums] [x y]))
+      (recur (read-line) (inc row-num) c))))
 
 (defn render-cell [x y live-cells]
   (if (nil? (live-cells [x y])) "0" "1"))
@@ -28,7 +24,7 @@
   (when (= x (dec game-size)) (println))
   (def next-x (if (not= (inc x) game-size) (inc x) 0))
   (def next-y (if (= next-x 0) (inc y) y))
-  (when (not= next-y game-size) (render next-x next-y game-size final-cells)))
+  (when (not= next-y game-size) (recur next-x next-y game-size final-cells)))
 
 (defn run-game []
   (def first-input (read-line))
@@ -36,11 +32,10 @@
   (def game-size (int first-input))
   (def num-ticks (int (read-line)))
   (def live-cells (read-cells (read-line) 0 []))
-  (def coordinates (get-coordinates game-size))
   (def final-cells (gameoflife/play game-size live-cells num-ticks))
   (render 0 0 game-size final-cells)
   (println "GO")
-  (run-game))
+  (recur))
 
 (defn -main [& args]
   (println "GO")
