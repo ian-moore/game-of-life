@@ -31,7 +31,6 @@
   (when (not= next-y game-size) (render next-x next-y game-size final-cells)))
 
 (defn run-game []
-  (println "GO")
   (def first-input (read-line))
   (when (= first-input "STOP") (System.Environment/Exit 1))
   (def game-size (int first-input))
@@ -40,19 +39,9 @@
   (def coordinates (get-coordinates game-size))
   (def final-cells (gameoflife/play game-size live-cells num-ticks))
   (render 0 0 game-size final-cells)
-  (println "GO"))
+  (println "GO")
+  (run-game))
 
 (defn -main [& args]
-  (loop [i 1]
-    (run-game)
-    (recur (inc 1))))
-;  (println "GO")
-;  (def first-input (read-line))
-;  (when (= first-input "STOP") (System.Environment/Exit 1))
-;  (def game-size (int first-input))
-;  (def num-ticks (int (read-line)))
-;  (def live-cells (read-cells (read-line) 0 []))
-;  (def coordinates (get-coordinates game-size))
-;  (def final-cells (gameoflife/play game-size live-cells num-ticks))
-;  (render 0 0 game-size final-cells)
-;  (println "GO"))
+  (println "GO")
+  (run-game))
